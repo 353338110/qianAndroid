@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Qian.iml" filepath="$PROJECT_DIR$/Qian.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qianAndroid.iml" filepath="$PROJECT_DIR$/qianAndroid.iml" />
     </modules>
   </component>
 </project>

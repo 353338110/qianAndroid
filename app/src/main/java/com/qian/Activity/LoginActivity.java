@@ -68,7 +68,6 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.btn_login)
     public void onViewClicked() {
-
         username = etName.getText().toString();
         password = etPassword.getText().toString();
 
