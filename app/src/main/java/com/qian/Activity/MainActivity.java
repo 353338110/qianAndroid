@@ -7,9 +7,15 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.qian.Base.BaseActivity;
+import com.qian.Bean.Kaiyan.Daily;
 import com.qian.CustomView.LVGhost;
 import com.qian.R;
+import com.qian.RXjaveRetrofitUtil.KRetrofitHelper;
+import com.qian.RXjaveRetrofitUtil.ProgressSubscriber;
+import com.qian.RXjaveRetrofitUtil.RetrofitHelper;
+import com.qian.RXjaveRetrofitUtil.SubscriberOnNextListener;
 import com.qian.Utils.WindowUtils;
 
 import butterknife.BindView;
@@ -52,6 +58,12 @@ public class MainActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text:
+                KRetrofitHelper.getInstance().getDaily(new ProgressSubscriber<Daily>(new SubscriberOnNextListener<Daily>() {
+                    @Override
+                    public void onNext(Daily daily) {
+                        LogUtils.w(daily.toString());
+                    }
+                }));
                 break;
     }
     }

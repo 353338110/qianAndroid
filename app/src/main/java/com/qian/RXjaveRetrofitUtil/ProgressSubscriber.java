@@ -2,6 +2,7 @@ package com.qian.RXjaveRetrofitUtil;
 
 import android.content.Context;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.qian.MyApplication;
 import com.qian.Utils.WindowUtils;
@@ -56,6 +57,7 @@ public class ProgressSubscriber<T> extends Subscriber<T> {
      */
     @Override
     public void onError(Throwable e) {
+        LogUtils.e(e);
         if (e instanceof SocketTimeoutException) {
             ToastUtils.showLong("网络中断，请检查您的网络状态");
           //  Toast.makeText(context, "网络中断，请检查您的网络状态", Toast.LENGTH_SHORT).show();
