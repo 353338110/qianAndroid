@@ -4,7 +4,12 @@ apply plugin: 'android-apt'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+    packagingOptions {
+        exclude 'META-INF/NOTICE.txt' // will not include NOTICE file
+        exclude 'META-INF/LICENSE.txt' // will not include LICENSE file
+        exclude 'META-INF/rxjava.properties'
 
+    }
     defaultConfig {
         applicationId "cn.edu.fafu.fortynine.qian"
         minSdkVersion 17
@@ -44,4 +49,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.1'
 }
