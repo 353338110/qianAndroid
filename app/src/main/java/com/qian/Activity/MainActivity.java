@@ -2,33 +2,34 @@ package com.qian.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.view.View;
-import android.view.Window;
-import android.widget.TextView;
+import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.LogUtils;
+import com.ashokvarma.bottomnavigation.BottomNavigationBar;
+import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.qian.Base.BaseActivity;
-import com.qian.Bean.Kaiyan.Daily;
-import com.qian.CustomView.LVGhost;
+import com.qian.Fragment.EyepetizerFragment;
+import com.qian.FragmentUtil.CommLazyPagerAdapter;
+import com.qian.FragmentUtil.LazyPagerAdapter;
+import com.qian.FragmentUtil.LazyViewPager;
 import com.qian.R;
-import com.qian.RXjaveRetrofitUtil.KRetrofitHelper;
-import com.qian.RXjaveRetrofitUtil.ProgressSubscriber;
-import com.qian.RXjaveRetrofitUtil.RetrofitHelper;
-import com.qian.RXjaveRetrofitUtil.SubscriberOnNextListener;
-import com.qian.Utils.WindowUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener{
 
+    @BindView(R.id.lz_vp)
+    LazyViewPager lzVp;
+    @BindView(R.id.bottom_nav)
+    BottomNavigationBar bottomNav;
 
-    @BindView(R.id.text)
-    TextView text;
-
+    List<Fragment> fragments = new ArrayList<>();
+    CommLazyPagerAdapter commLazyPagerAdapter;
 
     @Override
     public void initParms(Bundle parms) {
@@ -51,10 +52,42 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void doBusiness(Context mContext) {
+        InitNavigationBar(bottomNav);
+        for (int i = 0; i < 3; i++) {
+            fragments.add(new EyepetizerFragment(i+1+""));
+        }
+        commLazyPagerAdapter = new CommLazyPagerAdapter(mContext,fragments);
+        lzVp.setAdapter(commLazyPagerAdapter);
+        lzVp.setCurrentItem(0);
+    }
+    private void InitNavigationBar(BottomNavigationBar mBottomNavigationBar) {
+        mBottomNavigationBar.setTabSelectedListener(this);
+        mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
+        mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
+        mBottomNavigationBar
+                .addItem(new BottomNavigationItem(R.mipmap.bottom1, "Eyepetizer").setActiveColorResource(R.color.bottom1))
+                .addItem(new BottomNavigationItem(R.mipmap.bottom2, "Whispers").setActiveColorResource(R.color.bottom2))
+                .addItem(new BottomNavigationItem(R.mipmap.bottom3, "Settings").setActiveColorResource(R.color.bottom3))
+                .setFirstSelectedPosition(0)
+                .initialise();
+    }
+
+    @Override
+    public void onTabSelected(int position) {
+        lzVp.setCurrentItem(position);
+    }
+
+    @Override
+    public void onTabUnselected(int position) {
 
     }
 
-    @OnClick({R.id.text})
+    @Override
+    public void onTabReselected(int position) {
+
+    }
+
+    /*@OnClick({R.id.text})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text:
@@ -65,6 +98,6 @@ public class MainActivity extends BaseActivity {
                     }
                 }));
                 break;
-    }
-    }
+        }
+    }*/
 }

@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.Utils;
+import com.qian.FragmentUtil.BackHandlerHelper;
 import com.qian.MyApplication;
 
 import butterknife.ButterKnife;
@@ -155,6 +156,13 @@ public abstract class BaseActivity extends FragmentActivity {
         MyApplication.remove(this);
         super.onDestroy();
         Log.d(TAG, "onDestroy()");
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!BackHandlerHelper.handleBackPress(this)) {
+            super.onBackPressed();
+        }
     }
 
 

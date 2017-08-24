@@ -6,4 +6,8 @@
 
     <color name="MainColor">#0f88eb</color>
     <color name="TextColor">#555555</color>
+    <color name="bottom2">#f68c02</color>
+    <color name="bottom1">#006d9e</color>
+    <color name="bottom3">#d30029</color>
+    <color name="white">#FFFFFF</color>
 </resources>
