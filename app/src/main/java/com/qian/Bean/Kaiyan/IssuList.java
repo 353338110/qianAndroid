@@ -26,20 +26,7 @@ public class IssuList {
     private long date;
     private long publishTime;
     private int count;
-    private List<?> itemList;
-
-    public static IssuList objectFromData(String str) {
-
-        return new Gson().fromJson(str, IssuList.class);
-    }
-
-    public static List<IssuList> arrayIssuListFromData(String str) {
-
-        Type listType = new TypeToken<ArrayList<IssuList>>() {
-        }.getType();
-
-        return new Gson().fromJson(str, listType);
-    }
+    private List<ItemList> itemList;
 
     public long getReleaseTime() {
         return releaseTime;
@@ -75,11 +62,11 @@ public class IssuList {
         this.count = count;
     }
 
-    public List<?> getItemList() {
+    public List<ItemList> getItemList() {
         return itemList;
     }
 
-    public void setItemList(List<?> itemList) {
+    public void setItemList(List<ItemList> itemList) {
         this.itemList = itemList;
     }
 }

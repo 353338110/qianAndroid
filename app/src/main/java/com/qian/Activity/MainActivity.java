@@ -10,6 +10,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.qian.Base.BaseActivity;
 import com.qian.Fragment.EyepetizerFragment;
+import com.qian.Fragment.WhispersFragment;
 import com.qian.FragmentUtil.CommLazyPagerAdapter;
 import com.qian.FragmentUtil.LazyPagerAdapter;
 import com.qian.FragmentUtil.LazyViewPager;
@@ -53,21 +54,21 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     @Override
     public void doBusiness(Context mContext) {
         InitNavigationBar(bottomNav);
-        for (int i = 0; i < 3; i++) {
-            fragments.add(new EyepetizerFragment(i+1+""));
-        }
-        commLazyPagerAdapter = new CommLazyPagerAdapter(mContext,fragments);
+        fragments.add(new EyepetizerFragment());
+        fragments.add(new WhispersFragment());
+        fragments.add(new WhispersFragment());
+        commLazyPagerAdapter = new CommLazyPagerAdapter(getSupportFragmentManager(),fragments);
         lzVp.setAdapter(commLazyPagerAdapter);
         lzVp.setCurrentItem(0);
     }
     private void InitNavigationBar(BottomNavigationBar mBottomNavigationBar) {
         mBottomNavigationBar.setTabSelectedListener(this);
-        mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
+        mBottomNavigationBar.setMode(BottomNavigationBar.MODE_DEFAULT);
         mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
         mBottomNavigationBar
-                .addItem(new BottomNavigationItem(R.mipmap.bottom1, "Eyepetizer").setActiveColorResource(R.color.bottom1))
-                .addItem(new BottomNavigationItem(R.mipmap.bottom2, "Whispers").setActiveColorResource(R.color.bottom2))
-                .addItem(new BottomNavigationItem(R.mipmap.bottom3, "Settings").setActiveColorResource(R.color.bottom3))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_github_circle_white_24dp, "Eyepetizer").setActiveColorResource(R.color.bottom1))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_favorite_white_24dp, "Whispers").setActiveColorResource(R.color.bottom2))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_location_on_white_24dp, "Settings").setActiveColorResource(R.color.bottom3))
                 .setFirstSelectedPosition(0)
                 .initialise();
     }

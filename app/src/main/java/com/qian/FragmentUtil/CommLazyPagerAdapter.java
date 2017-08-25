@@ -20,8 +20,9 @@ public class CommLazyPagerAdapter extends LazyFragmentPagerAdapter{
     List<Fragment> fragmentList;
     Context mContext;
 
-    public CommLazyPagerAdapter(FragmentManager fm) {
+    public CommLazyPagerAdapter(FragmentManager fm,List<Fragment> fragmentList) {
         super(fm);
+        this.fragmentList = fragmentList;
     }
 /*    public CommLazyPagerAdapter(Context mContext,List<Fragment> fragmentList) {
         this.mContext = mContext;
@@ -32,7 +33,7 @@ public class CommLazyPagerAdapter extends LazyFragmentPagerAdapter{
     @Override
     public Fragment getItem(ViewGroup container, int position) {
         //// TODO: 2017/8/25  返回fragment的view
-        return null;
+        return fragmentList.get(position);
     }
 
     @Override
@@ -40,14 +41,4 @@ public class CommLazyPagerAdapter extends LazyFragmentPagerAdapter{
         return fragmentList.size();
     }
 
-    private View buildItemView(int position) {
-        TextView view = new TextView(mContext);
-        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
-        view.setText(String.format("ItemView #%d", position));
-        view.setTextColor(Color.BLACK);
-        view.setTextSize(18);
-        view.setGravity(Gravity.CENTER);
-        view.setBackgroundColor(Color.YELLOW);
-        return view;
-    }
 }
