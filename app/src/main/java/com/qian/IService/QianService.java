@@ -17,7 +17,8 @@ public interface QianService {
     //192.168.1.100
     //10.0.2.2
     //192.168.1.122
-    String BASE_URL = "http://192.168.1.122:8080/";
+    //String BASE_URL = "http://192.168.1.122:8080/";
+    String BASE_URL = "http://116.196.82.151:8080/mmall/";
 
     @FormUrlEncoded
     @POST("user/login.do")
