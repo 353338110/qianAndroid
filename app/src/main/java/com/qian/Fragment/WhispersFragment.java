@@ -30,4 +30,9 @@ public class WhispersFragment extends BaseFragment{
     protected void initData() {
 
     }
+
+    @Override
+    protected void initEvent() {
+
+    }
 }

@@ -13,6 +13,7 @@ import com.qian.Base.BaseActivity;
 import com.qian.Bean.User;
 import com.qian.R;
 import com.qian.RXjaveRetrofitUtil.RetrofitHelper;
+import com.qian.Utils.Constants;
 
 import butterknife.BindView;
 import rx.Subscriber;
@@ -84,7 +85,8 @@ public class GuideActivity extends BaseActivity {
                 @Override
                 public void onNext(User user) {
                     LogUtils.w("onNext = " + user.toString());
-                    Intent intent = new Intent(GuideActivity.this,LoginActivity.class);
+                    Constants.user = user;
+                    Intent intent = new Intent(GuideActivity.this,MainActivity.class);
                     startActivity(intent);
                     finish();
                 }

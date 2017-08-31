@@ -17,6 +17,7 @@ import com.qian.RXjaveRetrofitUtil.MySubscriber;
 import com.qian.RXjaveRetrofitUtil.ProgressSubscriber;
 import com.qian.RXjaveRetrofitUtil.RetrofitHelper;
 import com.qian.RXjaveRetrofitUtil.SubscriberOnNextListener;
+import com.qian.Utils.Constants;
 import com.qian.Utils.WindowUtils;
 
 import butterknife.BindView;
@@ -77,6 +78,7 @@ public class LoginActivity extends BaseActivity {
                             @Override
                             public void onNext(User user) {
                                 LogUtils.w("onNext = " + user.toUserString());
+                                Constants.user = user;
                                 SPUtils.getInstance().put("username",username);
                                 SPUtils.getInstance().put("password",password);
 

@@ -15,7 +15,7 @@ import rx.Observable;
 public interface KaiyanService {
     String BASE_URL = "http://baobab.kaiyanapp.com/api/";
     @GET("v2/feed?num=2")
-    Observable<Daily> getDaily(@Query("date") long date);
+    Observable<Daily> getDaily(@Query("date") String date);
 
     @GET("v2/feed?num=2")
     Observable<Daily> getDaily();

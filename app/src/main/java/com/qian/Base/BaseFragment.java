@@ -46,6 +46,7 @@ public abstract class BaseFragment extends BackHandledFragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initData();
+        initEvent();
     }
 
     /**
@@ -66,5 +67,10 @@ public abstract class BaseFragment extends BackHandledFragment{
      */
     protected abstract void initData();
 
+
+    /**
+     * 监听事件
+     */
+    protected abstract void initEvent();
 
 }

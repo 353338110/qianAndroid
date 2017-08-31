@@ -3,11 +3,14 @@ package com.qian.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.blankj.utilcode.util.ToastUtils;
+import com.lauzy.freedom.lbehaviorlib.behavior.CommonBehavior;
 import com.qian.Base.BaseActivity;
 import com.qian.Fragment.EyepetizerFragment;
 import com.qian.Fragment.WhispersFragment;
@@ -60,13 +63,18 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         commLazyPagerAdapter = new CommLazyPagerAdapter(getSupportFragmentManager(),fragments);
         lzVp.setAdapter(commLazyPagerAdapter);
         lzVp.setCurrentItem(0);
+        CommonBehavior.from(bottomNav)
+                .setMinScrollY(20)
+                .setScrollYDistance(100)
+                .setDuration(1000)
+                .setInterpolator(new LinearOutSlowInInterpolator());
     }
     private void InitNavigationBar(BottomNavigationBar mBottomNavigationBar) {
         mBottomNavigationBar.setTabSelectedListener(this);
         mBottomNavigationBar.setMode(BottomNavigationBar.MODE_DEFAULT);
         mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
         mBottomNavigationBar
-                .addItem(new BottomNavigationItem(R.mipmap.ic_github_circle_white_24dp, "Eyepetizer").setActiveColorResource(R.color.bottom1))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_github_circle_white_24dp, "Eyepetizer").setActiveColorResource(R.color.black))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_favorite_white_24dp, "Whispers").setActiveColorResource(R.color.bottom2))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_location_on_white_24dp, "Settings").setActiveColorResource(R.color.bottom3))
                 .setFirstSelectedPosition(0)
@@ -75,6 +83,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void onTabSelected(int position) {
+        ToastUtils.showLong("当前是第"+position+"个fragment");
         lzVp.setCurrentItem(position);
     }
 
@@ -85,7 +94,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void onTabReselected(int position) {
-
     }
 
     /*@OnClick({R.id.text})

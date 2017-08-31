@@ -72,4 +72,9 @@ public class KRetrofitHelper {
                 .map(new CallResult<>());
         toSubscribe(observable, subscriber);
     }
+    public void getDaily(ProgressSubscriber<Daily> subscriber,String date){
+        Observable observable = kaiyanService.getDaily(date)
+                .map(new CallResult<>());
+        toSubscribe(observable, subscriber);
+    }
 }
