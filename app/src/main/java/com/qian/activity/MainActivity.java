@@ -49,8 +49,20 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void initView(View view) {
-
+        getSupportActionBar().hide();
     }
+
+    @Override
+    public void setSteepStatusBar(boolean isSetStatusBar) {
+        super.setSteepStatusBar(true);
+    }
+
+    @Override
+    public void setAllowFullScreen(boolean allowFullScreen) {
+        super.setAllowFullScreen(true);
+    }
+
+
 
     @Override
     public void doBusiness(Context mContext) {

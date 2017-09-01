@@ -44,13 +44,12 @@ public class GuideActivity extends BaseActivity {
 
     @Override
     public void initView(View view) {
-
+        getSupportActionBar().hide();
     }
 
     @Override
     public void doBusiness(Context mContext) {
         setSteepStatusBar(true);
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

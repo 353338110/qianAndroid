@@ -2,9 +2,11 @@ package com.qian.base;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.databinding.ViewDataBinding;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +23,11 @@ import butterknife.ButterKnife;
  * Created by SHCai on 2017/8/13.
  */
 
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     /** 是否沉浸状态栏 **/
     private boolean isSetStatusBar = true;
+
     /** 是否允许全屏 **/
     private boolean mAllowFullScreen = true;
     /** 是否禁止旋转屏幕 **/
@@ -47,8 +50,9 @@ public abstract class BaseActivity extends FragmentActivity {
         if (null == mView) {
             mContextView = LayoutInflater.from(this)
                     .inflate(bindLayout(), null);
-        } else
+        } else{
             mContextView = mView;
+        }
         if (mAllowFullScreen) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
@@ -192,4 +196,5 @@ public abstract class BaseActivity extends FragmentActivity {
     public void setScreenRoate(boolean isAllowScreenRoate) {
         this.isAllowScreenRoate = isAllowScreenRoate;
     }
+
 }
