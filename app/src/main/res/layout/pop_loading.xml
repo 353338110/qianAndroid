@@ -8,7 +8,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.qian.CustomView.LVGhost
+        <com.qian.customView.LVGhost
             android:layout_gravity="center"
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/loading"

@@ -7,13 +7,13 @@
     app:layout_behavior="@string/bottom_view_behavior">
 
 
-    <com.qian.FragmentUtil.LazyViewPager
+    <com.qian.utils.fragmentUtil.LazyViewPager
         android:id="@+id/lz_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_nav"
         app:init_lazy_item_offset="0.3">
-    </com.qian.FragmentUtil.LazyViewPager>
+    </com.qian.utils.fragmentUtil.LazyViewPager>
 
 
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
