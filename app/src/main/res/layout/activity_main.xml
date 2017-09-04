@@ -6,15 +6,23 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/bottom_view_behavior">
 
-
-    <com.qian.utils.fragmentUtil.LazyViewPager
-        android:id="@+id/lz_vp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <LinearLayout
         android:layout_above="@+id/bottom_nav"
-        app:init_lazy_item_offset="0.3">
-    </com.qian.utils.fragmentUtil.LazyViewPager>
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/toolbar">
+        </include>
 
+        <com.qian.utils.fragmentUtil.LazyViewPager
+            android:id="@+id/lz_vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:init_lazy_item_offset="0.3">
+        </com.qian.utils.fragmentUtil.LazyViewPager>
+    </LinearLayout>
 
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/bottom_nav"

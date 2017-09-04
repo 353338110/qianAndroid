@@ -54,7 +54,6 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView(View view) {
-        getSupportActionBar().hide();
         if (!"".equals(SPUtils.getInstance().getString("username"))){
             etName.setText(SPUtils.getInstance().getString("username"));
         }

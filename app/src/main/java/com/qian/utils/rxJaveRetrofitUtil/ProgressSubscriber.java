@@ -24,7 +24,9 @@ public class ProgressSubscriber<T> extends Subscriber<T> {
     }
 
     private void showProgressDialog(){
-        WindowUtils.showPopupWindow(MyApplication.getCurrentActivity());
+        if (null!=MyApplication.getCurrentActivity()){
+            WindowUtils.showPopupWindow(MyApplication.getCurrentActivity());
+        }
     }
 
     private void dismissProgressDialog(){

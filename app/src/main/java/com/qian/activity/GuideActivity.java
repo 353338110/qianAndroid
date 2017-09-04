@@ -44,7 +44,7 @@ public class GuideActivity extends BaseActivity {
 
     @Override
     public void initView(View view) {
-        getSupportActionBar().hide();
+
     }
 
     @Override

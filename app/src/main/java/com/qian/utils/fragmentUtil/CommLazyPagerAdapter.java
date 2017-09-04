@@ -28,7 +28,6 @@ public class CommLazyPagerAdapter extends LazyFragmentPagerAdapter{
 
     @Override
     public Fragment getItem(ViewGroup container, int position) {
-        //// TODO: 2017/8/25  返回fragment的view
         return fragmentList.get(position);
     }
 

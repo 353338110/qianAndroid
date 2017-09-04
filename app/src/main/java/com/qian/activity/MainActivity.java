@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -29,10 +30,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     LazyViewPager lzVp;
     @BindView(R.id.bottom_nav)
     BottomNavigationBar bottomNav;
-
     List<Fragment> fragments = new ArrayList<>();
     CommLazyPagerAdapter commLazyPagerAdapter;
 
+    View toolBarLayout;
     @Override
     public void initParms(Bundle parms) {
     }
@@ -49,10 +50,18 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void initView(View view) {
-        getSupportActionBar().hide();
+        toolBarLayout = findViewById(R.id.layout_toolbar);
+        toolBarLayout.setVisibility(View.GONE);
     }
 
-    @Override
+    public void setToolBarLayoutVisible(boolean isVisible){
+        if (isVisible){
+            toolBarLayout.setVisibility(View.VISIBLE);
+        }else {
+            toolBarLayout.setVisibility(View.GONE);
+        }
+    }
+ /*   @Override
     public void setSteepStatusBar(boolean isSetStatusBar) {
         super.setSteepStatusBar(true);
     }
@@ -60,7 +69,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     @Override
     public void setAllowFullScreen(boolean allowFullScreen) {
         super.setAllowFullScreen(true);
-    }
+    }*/
 
 
 
@@ -105,18 +114,4 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     @Override
     public void onTabReselected(int position) {
     }
-
-    /*@OnClick({R.id.text})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.text:
-                KRetrofitHelper.getInstance().getDaily(new ProgressSubscriber<Daily>(new SubscriberOnNextListener<Daily>() {
-                    @Override
-                    public void onNext(Daily daily) {
-                        LogUtils.w(daily.toString());
-                    }
-                }));
-                break;
-        }
-    }*/
 }
