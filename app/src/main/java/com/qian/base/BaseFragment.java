@@ -16,9 +16,9 @@ import butterknife.ButterKnife;
  * Created by SHCai on 2017/8/24.
  */
 
-public abstract class BaseFragment extends BackHandledFragment{
+public abstract class BaseFragment<P extends BasePresenter> extends BackHandledFragment implements IView{
     protected Activity mActivity;
-
+    protected P mPresenter;
     /**
      * 获得全局的，防止使用getActivity()为空
      * @param context
@@ -37,6 +37,9 @@ public abstract class BaseFragment extends BackHandledFragment{
         View view = LayoutInflater.from(mActivity)
                 .inflate(getLayoutId(), container, false);
         ButterKnife.bind(this, view);
+        mPresenter = loadPresenter();
+        if (mPresenter != null)
+            mPresenter.attachView(this);
         initView(view, savedInstanceState);
 
         return view;
@@ -63,6 +66,11 @@ public abstract class BaseFragment extends BackHandledFragment{
     protected abstract void initView(View view, Bundle savedInstanceState);
 
     /**
+     * 实例化presenter
+     */
+    protected abstract P loadPresenter();
+
+    /**
      * 执行数据的加载
      */
     protected abstract void initData();
@@ -73,4 +81,11 @@ public abstract class BaseFragment extends BackHandledFragment{
      */
     protected abstract void initEvent();
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+        }
+    }
 }

@@ -12,6 +12,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lauzy.freedom.lbehaviorlib.behavior.CommonBehavior;
 import com.qian.base.BaseActivity;
+import com.qian.base.BasePresenter;
 import com.qian.fragment.EyepetizerFragment;
 import com.qian.fragment.WhispersFragment;
 import com.qian.utils.fragmentUtil.CommLazyPagerAdapter;
@@ -46,6 +47,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     @Override
     public int bindLayout() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected BasePresenter loadPresenter() {
+        return null;
     }
 
     @Override

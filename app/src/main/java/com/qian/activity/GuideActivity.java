@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.qian.base.BaseActivity;
+import com.qian.base.BasePresenter;
 import com.qian.bean.User;
 import com.qian.R;
 import com.qian.utils.rxJaveRetrofitUtil.RetrofitHelper;
@@ -40,6 +41,11 @@ public class GuideActivity extends BaseActivity {
     @Override
     public int bindLayout() {
         return R.layout.activity_guide;
+    }
+
+    @Override
+    protected BasePresenter loadPresenter() {
+        return null;
     }
 
     @Override

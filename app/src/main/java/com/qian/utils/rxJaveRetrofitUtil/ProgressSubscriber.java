@@ -69,7 +69,9 @@ public class ProgressSubscriber<T> extends Subscriber<T> {
           //  Toast.makeText(context, "error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         dismissProgressDialog();
-
+        if (mSubscriberOnNextListener != null) {
+            mSubscriberOnNextListener.error(e.getMessage());
+        }
     }
 
     /**

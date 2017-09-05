@@ -10,9 +10,13 @@ import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qian.adapter.DailyAdapter;
 import com.qian.base.BaseFragment;
+import com.qian.base.BasePresenter;
+import com.qian.base.IView;
 import com.qian.bean.kaiyan.Daily;
 import com.qian.bean.kaiyan.IssuList;
 import com.qian.bean.kaiyan.ItemList;
+import com.qian.contract.IEyepetizerContract;
+import com.qian.presenter.EyepetizerPresenter;
 import com.qian.utils.fragmentUtil.LazyFragmentPagerAdapter;
 import com.qian.R;
 import com.qian.utils.rxJaveRetrofitUtil.KRetrofitHelper;
@@ -30,7 +34,7 @@ import butterknife.BindView;
  * Created by SHCai on 2017/8/25.
  */
 
-public class EyepetizerFragment extends BaseFragment implements LazyFragmentPagerAdapter.Laziable {
+public class EyepetizerFragment extends BaseFragment<EyepetizerPresenter> implements LazyFragmentPagerAdapter.Laziable,IEyepetizerContract.View {
 
     @BindView(R.id.rcv_eye)
     RecyclerView rcvEye;
@@ -54,12 +58,18 @@ public class EyepetizerFragment extends BaseFragment implements LazyFragmentPage
     }
 
     @Override
+    protected EyepetizerPresenter loadPresenter() {
+        return new EyepetizerPresenter();
+    }
+
+    @Override
     protected void initData() {
         dailyAdapter = new DailyAdapter();
-        dailyAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+       // dailyAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+        dailyAdapter.openLoadAnimation();
         rcvEye.setAdapter(dailyAdapter);
         rcvEye.setLayoutManager(new LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false));
-        KRetrofitHelper.getInstance().getDaily(new ProgressSubscriber<Daily>(new SubscriberOnNextListener<Daily>() {
+        /*KRetrofitHelper.getInstance().getDaily(new ProgressSubscriber<Daily>(new SubscriberOnNextListener<Daily>() {
             @Override
             public void onNext(Daily daily) {
                 lastDaily = daily;
@@ -76,7 +86,13 @@ public class EyepetizerFragment extends BaseFragment implements LazyFragmentPage
                 dailyAdapter.notifyDataSetChanged();
                 LogUtils.w(daily.toString());
             }
-        }));
+
+            @Override
+            public void error(String error) {
+
+            }
+        }));*/
+        mPresenter.getDaily();
     }
 
     @Override
@@ -85,7 +101,7 @@ public class EyepetizerFragment extends BaseFragment implements LazyFragmentPage
             @Override
             public void onLoadMoreRequested() {
                 LogUtils.w("滑动底部");
-                String nextPageUrl = lastDaily.getNextPageUrl();
+                /*String nextPageUrl = lastDaily.getNextPageUrl();
                 dateTime = nextPageUrl.substring(nextPageUrl.indexOf("=") + 1,
                         nextPageUrl.indexOf("&"));
                 LogUtils.w("dateTime = "+dateTime);
@@ -107,9 +123,30 @@ public class EyepetizerFragment extends BaseFragment implements LazyFragmentPage
                         dailyAdapter.notifyDataSetChanged();
                         LogUtils.w(daily.toString());
                     }
-                }),dateTime);
+
+                    @Override
+                    public void error(String error) {
+
+                    }
+                }),dateTime);*/
+                mPresenter.getMoreDaily();
             }
         },rcvEye);
     }
 
+    @Override
+    public void setDaily(Daily daily) {
+        dailys.clear();
+        dailys.addAll(MyStringUtil.getItemList(daily));
+        dailyAdapter.addData(dailys);
+        dailyAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setMoreDaily(Daily daily) {
+        dailyAdapter.loadMoreComplete();
+        dailys.addAll(MyStringUtil.getItemList(daily));
+        dailyAdapter.addData(dailys);
+      //  dailyAdapter.notifyDataSetChanged();
+    }
 }

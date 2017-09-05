@@ -6,4 +6,5 @@ package com.qian.utils.rxJaveRetrofitUtil;
 
 public interface SubscriberOnNextListener<T> {
     void onNext(T t);
+    void error(String error);
 }

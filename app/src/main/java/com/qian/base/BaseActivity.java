@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * Created by SHCai on 2017/8/13.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IView{
 
     /** 是否沉浸状态栏 **/
     private boolean isSetStatusBar = true;
@@ -38,6 +38,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
 
     public BaseActivity mContext;
+
+    protected P mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         Utils.init(mContext);
         ButterKnife.bind(this);
+        mPresenter = loadPresenter();
+        if (mPresenter != null)
+            mPresenter.attachView(this);
         initView(mContextView);
         doBusiness(this);
         MyApplication.addActivity(this);
@@ -104,6 +109,13 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @return
      */
     public abstract int bindLayout();
+
+    /**
+     * [实例化Presenter]
+     *
+     * @return
+     */
+    protected abstract P loadPresenter();
 
     /**
      * [初始化控件]
@@ -160,6 +172,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         MyApplication.remove(this);
         super.onDestroy();
         Log.d(TAG, "onDestroy()");
+        if (mPresenter != null) {
+            mPresenter.detachView();
+        }
     }
 
     @Override
