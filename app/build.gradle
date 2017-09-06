@@ -54,4 +54,8 @@ dependencies {
 
     compile 'com.github.Lauzy:LBehavior:1.0.2'
     compile 'com.ashokvarma.android:bottom-navigation-bar:2.0.2'
+
+    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.7.5'
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.7.5'
+    compile 'com.danikula:videocache:2.6.4'
 }
