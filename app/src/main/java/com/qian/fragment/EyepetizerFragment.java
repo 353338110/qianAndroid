@@ -49,9 +49,6 @@ public class EyepetizerFragment extends BaseFragment<EyepetizerPresenter> implem
 
     DailyAdapter dailyAdapter;
 
-    private String dateTime = "";
-    Daily lastDaily;
-
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
 
@@ -64,34 +61,11 @@ public class EyepetizerFragment extends BaseFragment<EyepetizerPresenter> implem
 
     @Override
     protected void initData() {
-        dailyAdapter = new DailyAdapter();
-       // dailyAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-        dailyAdapter.openLoadAnimation();
+        dailyAdapter = new DailyAdapter(R.layout.item_daily,dailys);
+        /*dailyAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        dailyAdapter.setNotDoAnimationCount(3);*/
         rcvEye.setAdapter(dailyAdapter);
         rcvEye.setLayoutManager(new LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false));
-        /*KRetrofitHelper.getInstance().getDaily(new ProgressSubscriber<Daily>(new SubscriberOnNextListener<Daily>() {
-            @Override
-            public void onNext(Daily daily) {
-                lastDaily = daily;
-                for (IssuList i : daily.getIssueList()) {
-                    Iterator<ItemList> stuIter = i.getItemList().iterator();
-                    while (stuIter.hasNext()) {
-                        ItemList itemList = stuIter.next();
-                        if (!itemList.type.equals("video"))
-                            stuIter.remove();//这里要使用Iterator的remove方法移除当前对象，如果使用List的remove方法，则同样会出现ConcurrentModificationException
-                    }
-                }
-                dailys.addAll(MyStringUtil.getItemList(daily));
-                dailyAdapter.addData(dailys);
-                dailyAdapter.notifyDataSetChanged();
-                LogUtils.w(daily.toString());
-            }
-
-            @Override
-            public void error(String error) {
-
-            }
-        }));*/
         mPresenter.getDaily();
     }
 
@@ -101,34 +75,6 @@ public class EyepetizerFragment extends BaseFragment<EyepetizerPresenter> implem
             @Override
             public void onLoadMoreRequested() {
                 LogUtils.w("滑动底部");
-                /*String nextPageUrl = lastDaily.getNextPageUrl();
-                dateTime = nextPageUrl.substring(nextPageUrl.indexOf("=") + 1,
-                        nextPageUrl.indexOf("&"));
-                LogUtils.w("dateTime = "+dateTime);
-                KRetrofitHelper.getInstance().getDaily(new ProgressSubscriber<Daily>(new SubscriberOnNextListener<Daily>() {
-                    @Override
-                    public void onNext(Daily daily) {
-                       dailyAdapter.loadMoreComplete();
-                        lastDaily = daily;
-                        for (IssuList i : daily.getIssueList()) {
-                            Iterator<ItemList> stuIter = i.getItemList().iterator();
-                            while (stuIter.hasNext()) {
-                                ItemList itemList = stuIter.next();
-                                if (!itemList.type.equals("video"))
-                                    stuIter.remove();//这里要使用Iterator的remove方法移除当前对象，如果使用List的remove方法，则同样会出现ConcurrentModificationException
-                            }
-                        }
-                        dailys.addAll(MyStringUtil.getItemList(daily));
-                        dailyAdapter.addData(dailys);
-                        dailyAdapter.notifyDataSetChanged();
-                        LogUtils.w(daily.toString());
-                    }
-
-                    @Override
-                    public void error(String error) {
-
-                    }
-                }),dateTime);*/
                 mPresenter.getMoreDaily();
             }
         },rcvEye);
@@ -138,15 +84,14 @@ public class EyepetizerFragment extends BaseFragment<EyepetizerPresenter> implem
     public void setDaily(Daily daily) {
         dailys.clear();
         dailys.addAll(MyStringUtil.getItemList(daily));
-        dailyAdapter.addData(dailys);
         dailyAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void setMoreDaily(Daily daily) {
         dailyAdapter.loadMoreComplete();
-        dailys.addAll(MyStringUtil.getItemList(daily));
-        dailyAdapter.addData(dailys);
-      //  dailyAdapter.notifyDataSetChanged();
+        //dailys.addAll(MyStringUtil.getItemList(daily));
+        dailyAdapter.addData(MyStringUtil.getItemList(daily));
+        //dailyAdapter.notifyDataSetChanged();
     }
 }

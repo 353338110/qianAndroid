@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:transitionGroup="false">
+
+    <View
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:transitionName="@string/transition_shot_background"/>
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:elevation="8dp"
+        android:layout_marginTop="@dimen/statusbar_height"
+        android:src="@drawable/ic_arrow_back_white_24px"
+        tools:ignore="ContentDescription"/>
+
+    <com.qian.utils.widget.ParallaxScrimageView
+        android:id="@+id/backdrop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/backdrop_height"
+        android:minHeight="@dimen/fab_min_offset"
+        android:background="@color/light_grey"
+        android:scaleType="centerCrop"
+        android:stateListAnimator="@animator/image_pin"
+        android:transitionName="@string/transition_shot"/>
+
+    <com.qian.utils.widget.FabToggle
+        android:id="@+id/fab_play"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/fab_play"
+        android:clickable="true"
+        android:elevation="12dp"
+        android:padding="16dp"
+        android:src="@drawable/ic_play_arrow_white_48px"
+        android:tint="@android:color/white"/>
+</FrameLayout>

@@ -5,8 +5,11 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.qian.bean.kaiyan.Daily;
 import com.qian.bean.kaiyan.ItemList;
 import com.qian.R;
+
+import java.util.List;
 
 /**
  * Created by master on 2017/8/31.
@@ -14,8 +17,8 @@ import com.qian.R;
 
 public class DailyAdapter extends BaseQuickAdapter<ItemList, BaseViewHolder>{
 
-    public DailyAdapter() {
-        super(R.layout.item_daily);
+    public DailyAdapter(int layout,List< ItemList> list) {
+        super(layout,list);
     }
     @Override
     protected void convert(BaseViewHolder helper, ItemList item) {
