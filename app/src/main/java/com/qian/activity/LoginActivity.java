@@ -109,8 +109,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     @Override
     public void loginSuccess(User user) {
         Constants.user = user;
-        SPUtils.getInstance().put("username",username);
-        SPUtils.getInstance().put("password",password);
+        SPUtils.getInstance().put("username",getUsername());
+        SPUtils.getInstance().put("password",getPassword());
 
         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
         startActivity(intent);

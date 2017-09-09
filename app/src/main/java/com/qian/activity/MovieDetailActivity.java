@@ -7,15 +7,22 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import com.qian.R;
+import com.qian.adapter.ReplyAdapter;
 import com.qian.base.BaseActivity;
 import com.qian.base.BasePresenter;
+import com.qian.bean.kaiyan.ItemList;
+import com.qian.bean.kaiyan.ReplyList;
+import com.qian.contract.IReplyContract;
 import com.qian.utils.widget.FabToggle;
 import com.qian.utils.widget.ParallaxScrimageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
 
-public class MovieDetailActivity extends BaseActivity {
+public class MovieDetailActivity extends BaseActivity implements IReplyContract.View{
 
 
     @BindView(R.id.background)
@@ -29,6 +36,11 @@ public class MovieDetailActivity extends BaseActivity {
     @BindView(R.id.content_layout)
     FrameLayout contentLayout;
 
+    ReplyAdapter replyAdapter;
+
+    private List<ReplyList> datas = new ArrayList<>();
+    private ItemList item;
+    private View movieDescription;
     @Override
     public void initParms(Bundle parms) {
 
@@ -57,5 +69,15 @@ public class MovieDetailActivity extends BaseActivity {
     @Override
     public void doBusiness(Context mContext) {
 
+    }
+
+    @Override
+    public int getId() {
+        return 0;
+    }
+
+    @Override
+    public int getLastId() {
+        return 0;
     }
 }

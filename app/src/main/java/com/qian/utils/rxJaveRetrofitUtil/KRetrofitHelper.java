@@ -1,6 +1,7 @@
 package com.qian.utils.rxJaveRetrofitUtil;
 
 import com.qian.bean.kaiyan.Daily;
+import com.qian.bean.kaiyan.Replies;
 import com.qian.iService.KaiyanService;
 
 import java.util.concurrent.TimeUnit;
@@ -70,6 +71,16 @@ public class KRetrofitHelper {
     }
     public void getDaily(ProgressSubscriber<Daily> subscriber,String date){
         Observable observable = kaiyanService.getDaily(date)
+                .map(new CallResult<>());
+        toSubscribe(observable, subscriber);
+    }
+    public void fetchReplies(ProgressSubscriber<Replies> subscriber, int id){
+        Observable observable = kaiyanService.fetchReplies(id)
+                .map(new CallResult<>());
+        toSubscribe(observable, subscriber);
+    }
+    public void fetchReplies(ProgressSubscriber<Replies> subscriber,int id,int lastId){
+        Observable observable = kaiyanService.fetchReplies(id,lastId)
                 .map(new CallResult<>());
         toSubscribe(observable, subscriber);
     }

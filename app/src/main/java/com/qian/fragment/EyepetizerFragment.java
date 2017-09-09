@@ -1,13 +1,21 @@
 package com.qian.fragment;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
+import android.util.Log;
 import android.view.View;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.animation.AlphaInAnimation;
+import com.chad.library.adapter.base.animation.BaseAnimation;
 import com.qian.adapter.DailyAdapter;
 import com.qian.base.BaseFragment;
 import com.qian.base.BasePresenter;
@@ -17,6 +25,7 @@ import com.qian.bean.kaiyan.IssuList;
 import com.qian.bean.kaiyan.ItemList;
 import com.qian.contract.IEyepetizerContract;
 import com.qian.presenter.EyepetizerPresenter;
+import com.qian.utils.IntentManager;
 import com.qian.utils.fragmentUtil.LazyFragmentPagerAdapter;
 import com.qian.R;
 import com.qian.utils.rxJaveRetrofitUtil.KRetrofitHelper;
@@ -62,11 +71,24 @@ public class EyepetizerFragment extends BaseFragment<EyepetizerPresenter> implem
     @Override
     protected void initData() {
         dailyAdapter = new DailyAdapter(R.layout.item_daily,dailys);
+        dailyAdapter.isFirstOnly(true);
+        ((SimpleItemAnimator)rcvEye.getItemAnimator()).setSupportsChangeAnimations(false);
+        dailyAdapter.openLoadAnimation(new BaseAnimation() {
+            @Override
+            public Animator[] getAnimators(View view) {
+                return new Animator[]{
+                        ObjectAnimator.ofFloat(view, "scaleY", 1, 1.1f, 1),
+                        ObjectAnimator.ofFloat(view, "scaleX", 1, 1.1f, 1)
+                };
+            }
+        });
         /*dailyAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         dailyAdapter.setNotDoAnimationCount(3);*/
         rcvEye.setAdapter(dailyAdapter);
         rcvEye.setLayoutManager(new LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false));
         mPresenter.getDaily();
+        dailyAdapter.bindToRecyclerView(rcvEye);
+        dailyAdapter.disableLoadMoreIfNotFullPage();
     }
 
     @Override
@@ -78,6 +100,12 @@ public class EyepetizerFragment extends BaseFragment<EyepetizerPresenter> implem
                 mPresenter.getMoreDaily();
             }
         },rcvEye);
+        dailyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                IntentManager.flyToMovieDetail(mActivity, dailys.get(position), view);
+            }
+        });
     }
 
     @Override
@@ -90,8 +118,6 @@ public class EyepetizerFragment extends BaseFragment<EyepetizerPresenter> implem
     @Override
     public void setMoreDaily(Daily daily) {
         dailyAdapter.loadMoreComplete();
-        //dailys.addAll(MyStringUtil.getItemList(daily));
         dailyAdapter.addData(MyStringUtil.getItemList(daily));
-        //dailyAdapter.notifyDataSetChanged();
     }
 }
