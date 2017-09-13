@@ -1,5 +1,6 @@
 package com.qian.presenter;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.qian.activity.MovieDetailActivity;
 import com.qian.base.BasePresenter;
 import com.qian.bean.kaiyan.Daily;
@@ -21,12 +22,12 @@ public class ReplyPresenter extends BasePresenter<MovieDetailActivity> implement
         KRetrofitHelper.getInstance().fetchReplies(new ProgressSubscriber<Replies>(new SubscriberOnNextListener() {
             @Override
             public void onNext(Object o) {
-
+                getIView().getReply((Replies) o);
             }
 
             @Override
             public void error(String error) {
-
+                LogUtils.w(error);
             }
         }),getIView().getId());
     }
@@ -36,12 +37,12 @@ public class ReplyPresenter extends BasePresenter<MovieDetailActivity> implement
         KRetrofitHelper.getInstance().fetchReplies(new ProgressSubscriber<Replies>(new SubscriberOnNextListener() {
             @Override
             public void onNext(Object o) {
-
+                getIView().getMoreReply((Replies) o);
             }
 
             @Override
             public void error(String error) {
-
+                LogUtils.w(error);
             }
         }),getIView().getId(),getIView().getLastId());
     }

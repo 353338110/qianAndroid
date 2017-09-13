@@ -55,7 +55,6 @@ public class ReplyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             Glide.with(viewHolder.avatar.getContext())
                     .load(reply.user.avatar)
                     .apply(RequestOptions.bitmapTransform(new CircleTransform(viewHolder.avatar.getContext())))
-                   // .transform(new CircleTransform(viewHolder.avatar.getContext()))
                     .into(viewHolder.avatar);
 
             viewHolder.replyAvatar.setText(reply.user.nickname);
@@ -81,7 +80,7 @@ public class ReplyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         return count;
     }
 
-    static class Holder extends RecyclerView.ViewHolder {
+   public static class Holder extends RecyclerView.ViewHolder {
 
         ImageView avatar;
         TextView replyAvatar;
@@ -105,5 +104,4 @@ public class ReplyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             super(itemView);
         }
     }
-
 }

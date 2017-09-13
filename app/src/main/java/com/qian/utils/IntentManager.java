@@ -18,14 +18,15 @@ import com.bumptech.glide.request.target.Target;
 import com.qian.R;
 import com.qian.activity.MovieDetailActivity;
 import com.qian.bean.kaiyan.ItemList;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 public class IntentManager {
 
     public static void flyToMovieDetail(final Activity context,
                                         final ItemList item, final View view) {
-        Glide.with(context).load(item.data.cover.detail)
+      /*  Glide.with(context).load(item.data.cover.detail)
                 .listener(new RequestListener<Drawable>() {
-                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         Intent intent = new Intent(context, MovieDetailActivity.class);
@@ -46,6 +47,31 @@ public class IntentManager {
                         context.startActivity(intent);
                         return false;
                     }
+                });*/
+
+
+        Picasso.with(context).load(item.data.cover.detail)
+                .fetch(new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Intent intent = new Intent(context, MovieDetailActivity.class);
+                        intent.putExtra("item", item);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                                context,
+                                Pair.create(view, context.getString(R.string.transition_shot)),
+                                Pair.create(view, context.getString(R.string.transition_shot_background))
+                        );
+                        context.startActivity(intent, options.toBundle());
+                    }
+
+                    @Override
+                    public void onError() {
+                        Intent intent = new Intent(context, MovieDetailActivity.class);
+                        intent.putExtra("item", item);
+                        context.startActivity(intent);
+                    }
                 });
     }
+
+
 }

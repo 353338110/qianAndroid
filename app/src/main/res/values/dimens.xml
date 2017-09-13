@@ -8,4 +8,8 @@
     <dimen name="statusbar_height">24dp</dimen>
     <dimen name="backdrop_height">325dp</dimen>
     <dimen name="statubar_height">25dp</dimen>
+
+    <dimen name="divider_height">1px</dimen>
+    <dimen name="keyline_1">72dp</dimen>
+
 </resources>

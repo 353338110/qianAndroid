@@ -8,4 +8,6 @@ import com.qian.bean.User;
 
 public class Constants {
     public static User user;
+
+    public static String CACHE_KEY = "CACHE_KEY";
 }
