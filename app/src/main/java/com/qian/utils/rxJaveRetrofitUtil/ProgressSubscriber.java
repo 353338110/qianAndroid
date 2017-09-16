@@ -3,6 +3,7 @@ package com.qian.utils.rxJaveRetrofitUtil;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.qian.MyApplication;
+import com.qian.utils.ApiException;
 import com.qian.utils.WindowUtils;
 
 import java.net.ConnectException;

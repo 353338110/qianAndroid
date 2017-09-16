@@ -34,7 +34,7 @@ public class ApiException extends RuntimeException{
      * @param status
      * @return
      */
-    private static String getApiExceptionMessage(int status,String msg){
+    private static String getApiExceptionMessage(int status,String message){
        /* switch (code) {
             case 1:
                 msg = "该用户不存在";
@@ -45,11 +45,11 @@ public class ApiException extends RuntimeException{
             default:
                 msg = "未知错误";
         }*/
-       final String message = msg;
+       msg = message;
        MyApplication.getCurrentActivity().runOnUiThread(new Runnable() {
            @Override
            public void run() {
-               ToastUtils.showLong(message);
+               ToastUtils.showLong(msg);
            }
        });
 

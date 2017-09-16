@@ -22,10 +22,6 @@ import com.qian.utils.KTimeUtils;
 
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
-/**
- * @author zsj
- */
-
 public class VideoController extends FrameLayout
         implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener {
 

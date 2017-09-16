@@ -17,7 +17,7 @@ import com.qian.utils.rxJaveRetrofitUtil.SubscriberOnNextListener;
 public class LoginPresenter extends BasePresenter<LoginActivity> implements ILoginContract.Presenter {
     @Override
     public void login() {
-        if (null==getIView().getUsername() || "".equals(getIView().getUsername())){
+        if (null==getIView().getPhone() || "".equals(getIView().getPhone())){
             ToastUtils.showLong("请输入账号");
             return;
         }
@@ -25,7 +25,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements ILog
             ToastUtils.showLong("请输入密码");
             return;
         }
-        RetrofitHelper.getInstance().login(new ProgressSubscriber<User>(new SubscriberOnNextListener<User>() {
+        RetrofitHelper.getInstance().loginByPhone(new ProgressSubscriber<User>(new SubscriberOnNextListener<User>() {
             @Override
             public void onNext(User user) {
 
@@ -37,6 +37,6 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements ILog
             public void error(String error) {
                 getIView().loginError(error);
             }
-        }), getIView().getUsername(), getIView().getPassword());
+        }), getIView().getPhone(), getIView().getPassword());
     }
 }

@@ -121,4 +121,14 @@ public class RetrofitHelper {
                 .map(new HttpResultFunc<User>());
         toSubscribe(observable, subscriber);
     }
+    public void loginByPhone(Subscriber<User> subscriber, String phone, String password){
+        Observable observable = qianService.loginByPhone(phone, password)
+                .map(new HttpResultFunc<User>());
+        toSubscribe(observable, subscriber);
+    }
+    public void loginByPhone(ProgressSubscriber<User> subscriber, String phone, String password){
+        Observable observable = qianService.loginByPhone(phone, password)
+                .map(new HttpResultFunc<User>());
+        toSubscribe(observable, subscriber);
+    }
 }

@@ -42,7 +42,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-
+/**
+ * Created by SHCai on 2017/8/13.
+ */
 
 public class MovieDetailActivity extends BaseActivity<ReplyPresenter> implements IReplyContract.View,View.OnClickListener {
 

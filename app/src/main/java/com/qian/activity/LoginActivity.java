@@ -31,7 +31,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     @BindView(R.id.btn_login)
     Button btnLogin;
 
-    String username ;
+    String phone ;
     String password ;
 
     @Override
@@ -69,6 +69,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
 
     @OnClick(R.id.btn_login)
     public void onViewClicked() {
+        phone = etName.getText().toString();
+        password = etPassword.getText().toString();
         mPresenter.login();
         /*username = etName.getText().toString();
         password = etPassword.getText().toString();
@@ -97,20 +99,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     }
 
     @Override
-    public String getUsername() {
-        return etName.getText().toString();
+    public String getPhone() {
+        return phone;
     }
 
     @Override
     public String getPassword() {
-        return etPassword.getText().toString();
+        return password;
     }
 
     @Override
     public void loginSuccess(User user) {
         Constants.user = user;
-        SPUtils.getInstance().put("username",getUsername());
-        SPUtils.getInstance().put("password",getPassword());
+        SPUtils.getInstance().put("phone",phone);
+        SPUtils.getInstance().put("password",password);
 
         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
         startActivity(intent);

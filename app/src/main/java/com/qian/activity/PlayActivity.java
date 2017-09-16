@@ -29,7 +29,7 @@ import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 /**
- * @author zsj
+ * Created by SHCai on 2017/8/13.
  */
 
 public class PlayActivity extends ToolbarActivity

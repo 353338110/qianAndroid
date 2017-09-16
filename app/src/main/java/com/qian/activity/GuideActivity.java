@@ -68,12 +68,12 @@ public class GuideActivity extends BaseActivity {
     }
 
     private void Login(){
-        if ("".equals(SPUtils.getInstance().getString("username"))){
+        if ("".equals(SPUtils.getInstance().getString("phone"))){
             Intent intent = new Intent(GuideActivity.this,LoginActivity.class);
             startActivity(intent);
             finish();
         }else {
-            RetrofitHelper.getInstance().login(new Subscriber<User>() {
+            RetrofitHelper.getInstance().loginByPhone(new Subscriber<User>() {
                 @Override
                 public void onCompleted() {
                     LogUtils.w("onCompleted");
@@ -95,7 +95,7 @@ public class GuideActivity extends BaseActivity {
                     startActivity(intent);
                     finish();
                 }
-            }, SPUtils.getInstance().getString("username"), SPUtils.getInstance().getString("password"));
+            }, SPUtils.getInstance().getString("phone"), SPUtils.getInstance().getString("password"));
         }
 
     }

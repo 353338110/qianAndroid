@@ -106,10 +106,20 @@ public class EyepetizerFragment extends BaseFragment<EyepetizerPresenter> implem
                 IntentManager.flyToMovieDetail(mActivity, dailys.get(position), view);
             }
         });
+        sflEye.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                sflEye.setRefreshing(true);
+                mPresenter.getDaily();
+            }
+        });
     }
 
     @Override
     public void setDaily(Daily daily) {
+        if (null!=sflEye && sflEye.isRefreshing()){
+            sflEye.setRefreshing(false);
+        }
         dailys.clear();
         dailys.addAll(MyStringUtil.getItemList(daily));
         dailyAdapter.notifyDataSetChanged();

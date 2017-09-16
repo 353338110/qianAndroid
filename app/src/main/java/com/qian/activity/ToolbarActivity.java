@@ -12,7 +12,7 @@ import com.qian.R;
 
 
 /**
- * @author zsj
+ * Created by SHCai on 2017/8/13.
  */
 
 public abstract class ToolbarActivity extends AppCompatActivity {

@@ -12,7 +12,7 @@ import com.qian.bean.User;
 public interface ILoginContract {
 
     interface View extends IView{
-        String getUsername();
+        String getPhone();
         String getPassword();
         void loginSuccess(User user);
         void loginError(String error);
