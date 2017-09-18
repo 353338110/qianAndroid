@@ -23,6 +23,8 @@
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.LoginActivity"/>
         <activity android:name=".activity.MovieDetailActivity"/>
+        <activity android:name=".activity.UploadActivity"/>
+        <activity android:name=".activity.RicheditorActivity"/>
         <activity android:name=".activity.PlayActivity"
             android:screenOrientation="landscape"/>
     </application>

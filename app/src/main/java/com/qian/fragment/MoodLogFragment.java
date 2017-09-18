@@ -1,5 +1,6 @@
 package com.qian.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -8,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.qian.R;
+import com.qian.activity.MainActivity;
+import com.qian.activity.RicheditorActivity;
+import com.qian.activity.UploadActivity;
 import com.qian.base.BaseFragment;
 import com.qian.base.BasePresenter;
 
@@ -58,6 +62,8 @@ public class MoodLogFragment extends BaseFragment {
 
     @OnClick(R.id.tv_upload)
     public void onViewClicked() {
-
+        //Intent intent = new Intent(mActivity, UploadActivity.class);
+        Intent intent = new Intent(mActivity, RicheditorActivity.class);
+        startActivity(intent);
     }
 }

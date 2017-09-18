@@ -60,4 +60,7 @@ dependencies {
     compile 'com.danikula:videocache:2.6.4'
 
     compile 'com.squareup.picasso:picasso:2.5.2'
+
+    //富文本编辑器
+    compile 'jp.wasabeef:richeditor-android:1.2.2'
 }
