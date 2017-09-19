@@ -62,8 +62,8 @@ public class MoodLogFragment extends BaseFragment {
 
     @OnClick(R.id.tv_upload)
     public void onViewClicked() {
-        //Intent intent = new Intent(mActivity, UploadActivity.class);
-        Intent intent = new Intent(mActivity, RicheditorActivity.class);
+        Intent intent = new Intent(mActivity, UploadActivity.class);
+        //Intent intent = new Intent(mActivity, RicheditorActivity.class);
         startActivity(intent);
     }
 }

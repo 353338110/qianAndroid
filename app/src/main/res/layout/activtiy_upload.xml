@@ -6,7 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include layout="@layout/mytoolbar"></include>
+        <include layout="@layout/mytoolbar">
+        </include>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -15,6 +16,18 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rcv_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_content"
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:minHeight="200dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

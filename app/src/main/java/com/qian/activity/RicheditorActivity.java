@@ -3,22 +3,27 @@ package com.qian.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.bumptech.glide.util.Util;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.tools.ScreenUtils;
 import com.qian.R;
 import com.qian.base.BaseActivity;
 import com.qian.base.BasePresenter;
 import com.qian.utils.DoubleClick;
+import com.yalantis.ucrop.util.BitmapLoadUtils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import jp.wasabeef.richeditor.RichEditor;
@@ -69,6 +74,7 @@ public class RicheditorActivity extends BaseActivity{
         mPreview = (TextView) findViewById(R.id.preview);
         mEditor.setOnTextChangeListener(new RichEditor.OnTextChangeListener() {
             @Override public void onTextChange(String text) {
+                LogUtils.w(text);
                 mPreview.setText(text);
             }
         });
@@ -243,9 +249,27 @@ public class RicheditorActivity extends BaseActivity{
     private void afterSelect(List<LocalMedia> selectList) {
         if (null != selectList && selectList.size() > 0) {
             for (int i = 0; i < selectList.size(); i++) {
-                mEditor.insertImage(selectList.get(i).getCompressPath(),"");
+                //width  url = url + "\" width=\"60%\" ";
+                String url = selectList.get(i).getPath();
+                Bitmap bitmap = getLocalBitmap(selectList.get(i).getPath());
+                int width = bitmap.getWidth();
+                int screenWidth = (int) (ScreenUtils.getScreenWidth(mContext)*0.9);
+                if (width> screenWidth){
+                    url = url+"\" width=\"80%\" ";
+                }
+                mEditor.insertImage(url,"img");
             }
 
+        }
+    }
+    public static Bitmap getLocalBitmap(String url) {
+        try {
+            FileInputStream fis = new FileInputStream(url);
+            return BitmapFactory.decodeStream(fis);  ///把流转化为Bitmap图片
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
