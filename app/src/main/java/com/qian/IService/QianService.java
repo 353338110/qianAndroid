@@ -18,7 +18,7 @@ public interface QianService {
     //10.0.2.2
     //192.168.1.122
     String BASE_URL = "http://192.168.1.122:8080/";
-
+    //http://116.196.82.151:8080/mmall/user/login.do
     @FormUrlEncoded
     @POST("user/login.do")
     Observable<HttpResult<User>> login(@Field("username") String username, @Field("password") String password);
