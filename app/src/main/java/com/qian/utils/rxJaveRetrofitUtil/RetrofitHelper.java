@@ -1,16 +1,26 @@
 package com.qian.utils.rxJaveRetrofitUtil;
 
+import com.luck.picture.lib.entity.LocalMedia;
+import com.qian.bean.ChoosePicBean;
+import com.qian.bean.MoodLog;
 import com.qian.bean.httpResult.HttpResult;
 import com.qian.bean.User;
 import com.qian.iService.QianService;
 import com.qian.utils.ApiException;
 
+import java.io.File;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -50,6 +60,24 @@ public class RetrofitHelper {
                 .baseUrl(QianService.BASE_URL)
                 .build();
         qianService = retrofit.create(QianService.class);
+    }
+
+    public static MultipartBody filesToMultipartBody(List<ChoosePicBean> choosePicBeanList) {
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        for (ChoosePicBean choosePicBean : choosePicBeanList) {
+            // TODO: 16-4-2  这里为了简单起见，没有判断file的类型
+            if (null!=choosePicBean.getCompressPath()){
+                File file = new File(choosePicBean.getCompressPath());
+                if (file!=null){
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("image/png"), file);
+                    builder.addFormDataPart("file",file.getName() , requestBody);
+                }
+            }
+
+        }
+        builder.setType(MultipartBody.FORM);
+        MultipartBody multipartBody = builder.build();
+        return multipartBody;
     }
    /* *//**
      * 对结果进行预处理
@@ -129,6 +157,12 @@ public class RetrofitHelper {
     public void loginByPhone(ProgressSubscriber<User> subscriber, String phone, String password){
         Observable observable = qianService.loginByPhone(phone, password)
                 .map(new HttpResultFunc<User>());
+        toSubscribe(observable, subscriber);
+    }
+
+    public void uploadMood(ProgressSubscriber<String> subscriber,String title,String content, File[] files){
+        Observable observable = qianService.uploadMood(title,content, files)
+                .map(new HttpResultFunc<String>());
         toSubscribe(observable, subscriber);
     }
 }

@@ -1,13 +1,22 @@
 package com.qian.iService;
 
 import com.qian.bean.Mixed;
+import com.qian.bean.MoodLog;
 import com.qian.bean.httpResult.HttpResult;
 import com.qian.bean.User;
 
+import java.io.File;
+import java.util.Map;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import rx.Observable;
 
 /**
@@ -31,7 +40,8 @@ public interface QianService {
     @POST("user/login2.do")
     Observable<HttpResult<User>> loginByPhone(@Field("phone") String phone, @Field("password") String password);
 
-    /*@FormUrlEncoded
-    @POST("mixed/upload.do")
-    Observable<HttpResult<User>> uploadMixed(@Field("mixed") Mixed mixed, @Multipart() Multipart multipart);*/
+
+    @Multipart
+    @POST("moodlog/mood.do")
+    Observable<HttpResult<String>> uploadMood(@Part("title") String title, @Part("content") String content, @Part File[] files);
 }

@@ -64,21 +64,25 @@ public class KRetrofitHelper {
                 .subscribe(s);
     }
 
+    //开眼第一天的请求
     public void getDaily(ProgressSubscriber<Daily> subscriber){
         Observable observable = kaiyanService.getDaily()
                 .map(new CallResult<>());
         toSubscribe(observable, subscriber);
     }
+    //开眼下一天的请求
     public void getDaily(ProgressSubscriber<Daily> subscriber,String date){
         Observable observable = kaiyanService.getDaily(date)
                 .map(new CallResult<>());
         toSubscribe(observable, subscriber);
     }
+    //开眼获取首次进入的评论
     public void fetchReplies(ProgressSubscriber<Replies> subscriber, int id){
         Observable observable = kaiyanService.fetchReplies(id)
                 .map(new CallResult<>());
         toSubscribe(observable, subscriber);
     }
+    //开眼上拉评论
     public void fetchReplies(ProgressSubscriber<Replies> subscriber,int id,int lastId){
         Observable observable = kaiyanService.fetchReplies(id,lastId)
                 .map(new CallResult<>());

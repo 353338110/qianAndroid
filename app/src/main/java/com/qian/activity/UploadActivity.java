@@ -20,12 +20,13 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.qian.R;
 import com.qian.adapter.ChoosePicAdapter;
 import com.qian.base.BaseActivity;
-import com.qian.base.BasePresenter;
 import com.qian.bean.ChoosePicBean;
+import com.qian.bean.MoodLog;
+import com.qian.contract.IUploadContract;
+import com.qian.presenter.UploadPresenter;
 import com.qian.utils.DoubleClick;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,7 +36,7 @@ import butterknife.OnClick;
  * Created by master on 2017/9/16.
  */
 
-public class UploadActivity extends BaseActivity {
+public class UploadActivity extends BaseActivity<UploadPresenter> implements IUploadContract.View{
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
     @BindView(R.id.toolbar)
@@ -70,8 +71,8 @@ public class UploadActivity extends BaseActivity {
     }
 
     @Override
-    protected BasePresenter loadPresenter() {
-        return null;
+    protected UploadPresenter loadPresenter() {
+        return new UploadPresenter();
     }
 
     @Override
@@ -119,7 +120,7 @@ public class UploadActivity extends BaseActivity {
     @OnClick(R.id.fab_chose)
     public void onViewClicked() {
         if (DoubleClick.isFastClick()) {
-
+            mPresenter.upload();
         }
     }
 
@@ -128,7 +129,6 @@ public class UploadActivity extends BaseActivity {
     private void afterSelect(List<LocalMedia> selectList) {
         choosePicBeanList.clear();
         if (null != selectList && selectList.size() > 0) {
-
             for (int i = 0; i < selectList.size(); i++) {
                 ChoosePicBean choosePicBean = new ChoosePicBean(ChoosePicAdapter.TYPENORMAL);
                 choosePicBean.setCompressPath(selectList.get(i).getCompressPath());
@@ -163,5 +163,29 @@ public class UploadActivity extends BaseActivity {
                     break;
             }
         }
+    }
+
+
+    @Override
+    public MoodLog getMoodLog() {
+        MoodLog moodLog = new MoodLog();
+        moodLog.setContent(etContent.getText().toString());
+        moodLog.setTitle("这是title");
+        return moodLog;
+    }
+
+    @Override
+    public List<ChoosePicBean> getPicList() {
+        return choosePicBeanList;
+    }
+
+    @Override
+    public void showSuccess() {
+
+    }
+
+    @Override
+    public void showError() {
+
     }
 }
