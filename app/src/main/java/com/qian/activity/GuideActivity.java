@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.qian.base.BaseActivity;
 import com.qian.base.BasePresenter;
+import com.qian.bean.UIDUser;
 import com.qian.bean.User;
 import com.qian.R;
 import com.qian.utils.rxJaveRetrofitUtil.RetrofitHelper;
@@ -73,7 +74,7 @@ public class GuideActivity extends BaseActivity {
             startActivity(intent);
             finish();
         }else {
-            RetrofitHelper.getInstance().loginByPhone(new Subscriber<User>() {
+            RetrofitHelper.getInstance().loginByPhone(new Subscriber<UIDUser>() {
                 @Override
                 public void onCompleted() {
                     LogUtils.w("onCompleted");
@@ -88,9 +89,9 @@ public class GuideActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onNext(User user) {
-                    LogUtils.w("onNext = " + user.toString());
-                    Constants.user = user;
+                public void onNext(UIDUser uidUser) {
+                    LogUtils.w("onNext = " + uidUser.toUserString());
+                    Constants.uidUser = uidUser;
                     Intent intent = new Intent(GuideActivity.this,MainActivity.class);
                     startActivity(intent);
                     finish();

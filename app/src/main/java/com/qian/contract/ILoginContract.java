@@ -3,6 +3,7 @@ package com.qian.contract;
 import com.qian.activity.LoginActivity;
 import com.qian.base.BasePresenter;
 import com.qian.base.IView;
+import com.qian.bean.UIDUser;
 import com.qian.bean.User;
 
 /**
@@ -14,7 +15,7 @@ public interface ILoginContract {
     interface View extends IView{
         String getPhone();
         String getPassword();
-        void loginSuccess(User user);
+        void loginSuccess(UIDUser uidUser);
         void loginError(String error);
     }
 

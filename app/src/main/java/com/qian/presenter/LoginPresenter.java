@@ -4,6 +4,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.qian.activity.LoginActivity;
 import com.qian.base.BasePresenter;
+import com.qian.bean.UIDUser;
 import com.qian.bean.User;
 import com.qian.contract.ILoginContract;
 import com.qian.utils.rxJaveRetrofitUtil.ProgressSubscriber;
@@ -25,12 +26,12 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements ILog
             ToastUtils.showLong("请输入密码");
             return;
         }
-        RetrofitHelper.getInstance().loginByPhone(new ProgressSubscriber<User>(new SubscriberOnNextListener<User>() {
+        RetrofitHelper.getInstance().loginByPhone(new ProgressSubscriber<UIDUser>(new SubscriberOnNextListener<UIDUser>() {
             @Override
-            public void onNext(User user) {
+            public void onNext(UIDUser uidUser) {
 
-                LogUtils.w("onNext = " + user.toUserString());
-                getIView().loginSuccess(user);
+                LogUtils.w("onNext = " + uidUser.toUserString());
+                getIView().loginSuccess(uidUser);
             }
 
             @Override

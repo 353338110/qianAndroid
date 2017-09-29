@@ -3,6 +3,7 @@ package com.qian.utils.rxJaveRetrofitUtil;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qian.bean.ChoosePicBean;
 import com.qian.bean.MoodLog;
+import com.qian.bean.UIDUser;
 import com.qian.bean.httpResult.HttpResult;
 import com.qian.bean.User;
 import com.qian.iService.QianService;
@@ -21,6 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -149,19 +151,19 @@ public class RetrofitHelper {
                 .map(new HttpResultFunc<User>());
         toSubscribe(observable, subscriber);
     }
-    public void loginByPhone(Subscriber<User> subscriber, String phone, String password){
+    public void loginByPhone(Subscriber<UIDUser> subscriber, String phone, String password){
         Observable observable = qianService.loginByPhone(phone, password)
-                .map(new HttpResultFunc<User>());
+                .map(new HttpResultFunc<UIDUser>());
         toSubscribe(observable, subscriber);
     }
-    public void loginByPhone(ProgressSubscriber<User> subscriber, String phone, String password){
+    public void loginByPhone(ProgressSubscriber<UIDUser> subscriber, String phone, String password){
         Observable observable = qianService.loginByPhone(phone, password)
-                .map(new HttpResultFunc<User>());
+                .map(new HttpResultFunc<UIDUser>());
         toSubscribe(observable, subscriber);
     }
 
-    public void uploadMood(ProgressSubscriber<String> subscriber,String title,String content, File[] files){
-        Observable observable = qianService.uploadMood(title,content, files)
+    public void uploadMood(ProgressSubscriber<String> subscriber, String uid, String title, String content,Map<String, RequestBody> requestBodyMap){
+        Observable observable = qianService.uploadMood(uid,title,content, requestBodyMap)
                 .map(new HttpResultFunc<String>());
         toSubscribe(observable, subscriber);
     }

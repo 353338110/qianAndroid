@@ -2,10 +2,12 @@ package com.qian.iService;
 
 import com.qian.bean.Mixed;
 import com.qian.bean.MoodLog;
+import com.qian.bean.UIDUser;
 import com.qian.bean.httpResult.HttpResult;
 import com.qian.bean.User;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -38,10 +40,10 @@ public interface QianService {
 
     @FormUrlEncoded
     @POST("user/login2.do")
-    Observable<HttpResult<User>> loginByPhone(@Field("phone") String phone, @Field("password") String password);
+    Observable<HttpResult<UIDUser>> loginByPhone(@Field("phone") String phone, @Field("password") String password);
 
 
     @Multipart
     @POST("moodlog/mood.do")
-    Observable<HttpResult<String>> uploadMood(@Part("title") String title, @Part("content") String content, @Part File[] files);
+    Observable<HttpResult<String>> uploadMood(@Part("uid")String uid,@Part("title") String title, @Part("content") String content, @PartMap Map<String, RequestBody> files);
 }

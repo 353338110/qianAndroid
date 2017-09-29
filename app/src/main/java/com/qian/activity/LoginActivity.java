@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.qian.base.BaseActivity;
+import com.qian.bean.UIDUser;
 import com.qian.bean.User;
 import com.qian.R;
 import com.qian.contract.ILoginContract;
@@ -109,8 +110,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     }
 
     @Override
-    public void loginSuccess(User user) {
-        Constants.user = user;
+    public void loginSuccess(UIDUser uidUser) {
+        Constants.uidUser = uidUser;
         SPUtils.getInstance().put("phone",phone);
         SPUtils.getInstance().put("password",password);
 

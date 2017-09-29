@@ -1,5 +1,6 @@
 package com.qian.utils;
 
+import com.qian.bean.UIDUser;
 import com.qian.bean.User;
 
 /**
@@ -7,7 +8,7 @@ import com.qian.bean.User;
  */
 
 public class Constants {
-    public static User user;
+    public static UIDUser uidUser;
 
     public static String CACHE_KEY = "CACHE_KEY";
 }
