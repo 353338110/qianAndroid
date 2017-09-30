@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_item_mood_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+    <TextView
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:textColor="@color/text_color"
+        android:text="这就是我的content"
+        android:gravity="center_vertical"
+        android:id="@+id/tv_mood_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

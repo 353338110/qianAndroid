@@ -21,4 +21,5 @@
     <color name="light_grey">#fff5f5f5</color>
     <color name="line_color">#EFEFEF</color>
     <color name="tag_color">#33ffffff</color>
+    <color name="text_color">#555555</color>
 </resources>

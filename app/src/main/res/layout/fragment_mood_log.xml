@@ -7,10 +7,9 @@
     <include
         layout="@layout/mytoolbar">
     </include>
-    <TextView
-        android:id="@+id/tv_upload"
-        android:gravity="center"
-        android:text="fragment_mood_log"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_moodlog"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>
