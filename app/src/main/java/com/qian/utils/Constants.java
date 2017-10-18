@@ -11,4 +11,6 @@ public class Constants {
     public static UIDUser uidUser;
 
     public static String CACHE_KEY = "CACHE_KEY";
+
+    public static final int  PAGERSIZE = 3;
 }

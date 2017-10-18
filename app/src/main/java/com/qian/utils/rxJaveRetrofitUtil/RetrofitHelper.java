@@ -3,6 +3,7 @@ package com.qian.utils.rxJaveRetrofitUtil;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qian.bean.ChoosePicBean;
 import com.qian.bean.MoodLog;
+import com.qian.bean.Pager;
 import com.qian.bean.UIDUser;
 import com.qian.bean.httpResult.HttpResult;
 import com.qian.bean.User;
@@ -165,6 +166,12 @@ public class RetrofitHelper {
     public void uploadMood(ProgressSubscriber<String> subscriber, String uid, String title, String content,Map<String, RequestBody> requestBodyMap){
         Observable observable = qianService.uploadMood(uid,title,content, requestBodyMap)
                 .map(new HttpResultFunc<String>());
+        toSubscribe(observable, subscriber);
+    }
+
+    public void queryMood(ProgressSubscriber<Pager<MoodLog>> subscriber, String uid,int currentPage,int pageSize ){
+        Observable observable = qianService.queryMood(uid,currentPage,pageSize)
+                .map(new HttpResultFunc<Pager<MoodLog>>());
         toSubscribe(observable, subscriber);
     }
 }

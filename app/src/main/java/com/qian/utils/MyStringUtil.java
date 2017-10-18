@@ -21,4 +21,16 @@ public class MyStringUtil {
         }
         return itemLists;
     }
+
+    public static List<String> changeUrlToList(String url){
+        if (null!=url){
+            List<String> urlList = new ArrayList<>();
+            String[] split = url.split( "," );
+            for (int i = 0; i < split.length; i++) {
+                urlList.add(split[i]);
+            }
+            return urlList;
+        }
+        return null;
+    }
 }

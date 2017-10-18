@@ -1,30 +1,99 @@
 package com.qian.bean;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by master on 2017/9/21.
  */
 
 public class MoodLog {
+
     private String id;
-    private String userId;
     private int type;
     private String title;
     private String content;
+    private String url;
     private long createTime;
     private long updateTime;
+    /**
+     * userid : 0000000000000001
+     */
+
+    private String userid;
 
     public MoodLog() {
         super();
     }
 
-    public MoodLog(String id, String userId, int type, String title, String content, long createTime, long updateTime) {
+    public MoodLog(String id, String userid, int type, String title, String content, long createTime, long updateTime,String url) {
         this.id = id;
-        this.userId = userId;
+        this.userid = userid;
         this.type = type;
         this.title = title;
         this.content = content;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.url = url;
+    }
+
+    public static MoodLog objectFromData(String str) {
+
+        return new Gson().fromJson(str, MoodLog.class);
+    }
+
+    public static MoodLog objectFromData(String str, String key) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(str);
+
+            return new Gson().fromJson(jsonObject.getString(str), MoodLog.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static List<MoodLog> arrayMoodLogFromData(String str) {
+
+        Type listType = new TypeToken<ArrayList<MoodLog>>() {
+        }.getType();
+
+        return new Gson().fromJson(str, listType);
+    }
+
+    public static List<MoodLog> arrayMoodLogFromData(String str, String key) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(str);
+            Type listType = new TypeToken<ArrayList<MoodLog>>() {
+            }.getType();
+
+            return new Gson().fromJson(jsonObject.getString(str), listType);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList();
+
+
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getId() {
@@ -36,11 +105,11 @@ public class MoodLog {
     }
 
     public String getUserId() {
-        return userId;
+        return userid;
     }
 
     public void setUserId(String userId) {
-        this.userId = userId;
+        this.userid = userId;
     }
 
     public int getType() {
@@ -82,4 +151,5 @@ public class MoodLog {
     public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
     }
+
 }
