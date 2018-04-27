@@ -14,10 +14,11 @@ import rx.Observable;
 
 public interface QianService {
 
+    //114.67.129.197京东云地址
     //192.168.1.100
     //10.0.2.2
     //192.168.1.122
-    String BASE_URL = "http://192.168.1.122:8080/";
+    String BASE_URL = "http://114.67.129.197:8080/mmall/";
     //http://116.196.82.151:8080/mmall/user/login.do
     @FormUrlEncoded
     @POST("user/login.do")
