@@ -3,6 +3,7 @@ package com.qian.utils.rxJaveRetrofitUtil;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.qian.MyApplication;
+import com.qian.base.BaseActivity;
 import com.qian.utils.ApiException;
 import com.qian.utils.WindowUtils;
 
@@ -26,12 +27,18 @@ public class ProgressSubscriber<T> extends Subscriber<T> {
 
     private void showProgressDialog(){
         if (null!=MyApplication.getCurrentActivity()){
-            WindowUtils.showPopupWindow(MyApplication.getCurrentActivity());
+            if (MyApplication.getCurrentActivity() instanceof BaseActivity){
+                BaseActivity baseActivity = (BaseActivity) MyApplication.getCurrentActivity();
+                baseActivity.showProgress();
+            }
         }
     }
 
     private void dismissProgressDialog(){
-        WindowUtils.hidePopupWindow();
+        if (MyApplication.getCurrentActivity() instanceof BaseActivity){
+            BaseActivity baseActivity = (BaseActivity) MyApplication.getCurrentActivity();
+            baseActivity.dismissProgress();
+        }
     }
 
     /**

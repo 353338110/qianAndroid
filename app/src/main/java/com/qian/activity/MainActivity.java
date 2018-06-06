@@ -1,6 +1,7 @@
 package com.qian.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
@@ -11,19 +12,31 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lauzy.freedom.lbehaviorlib.behavior.CommonBehavior;
+import com.nostra13.universalimageloader.utils.L;
 import com.qian.base.BaseActivity;
 import com.qian.base.BasePresenter;
 import com.qian.fragment.EyepetizerFragment;
 import com.qian.fragment.MoodLogFragment;
 import com.qian.fragment.WhispersFragment;
+
+import com.qian.oksocket.OkSocketAdapter;
+import com.qian.oksocket.SendBean;
+import com.qian.utils.Constants;
 import com.qian.utils.fragmentUtil.CommLazyPagerAdapter;
 import com.qian.utils.fragmentUtil.LazyViewPager;
 import com.qian.R;
+import com.xuhao.android.libsocket.sdk.ConnectionInfo;
+import com.xuhao.android.libsocket.sdk.OkSocketOptions;
+import com.xuhao.android.libsocket.sdk.connection.IConnectionManager;
+import com.xuhao.android.libsocket.sdk.protocol.IHeaderProtocol;
 
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.xuhao.android.libsocket.sdk.OkSocket.open;
 
 
 public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener{
@@ -36,6 +49,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     CommLazyPagerAdapter commLazyPagerAdapter;
 
     View toolBarLayout;
+
+
     @Override
     public void initParms(Bundle parms) {
     }
@@ -94,6 +109,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 .setScrollYDistance(100)
                 .setDuration(1000)
                 .setInterpolator(new LinearOutSlowInInterpolator());
+
     }
     private void InitNavigationBar(BottomNavigationBar mBottomNavigationBar) {
         mBottomNavigationBar.setTabSelectedListener(this);
@@ -121,4 +137,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     @Override
     public void onTabReselected(int position) {
     }
+
+
 }

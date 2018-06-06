@@ -3,9 +3,12 @@ package com.qian;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.blankj.utilcode.util.Utils;
 import com.danikula.videocache.HttpProxyCacheServer;
+import com.xuhao.android.libsocket.sdk.OkSocket;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +17,7 @@ import java.util.List;
  * Created by master on 2017/8/14.
  */
 
-public class MyApplication extends Application{
+public class MyApplication extends MultiDexApplication {
 
     //对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList实现了基于动态数组的数据结构，要移动数据。LinkedList基于链表的数据结构,便于增加删除
     public static List<Activity> activityList = new LinkedList<Activity>();
@@ -22,11 +25,20 @@ public class MyApplication extends Application{
     public MyApplication() {
         super();
     }
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
     @Override
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+
+        //在主进程初始化一次,多进程时需要区分主进程.
+        //OkSocket.initialize(this);
+        //如果需要开启Socket调试日志,请配置
+        OkSocket.initialize(this,true);
     }
 
 

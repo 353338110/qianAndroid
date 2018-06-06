@@ -8,12 +8,16 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import com.blankj.utilcode.util.Utils;
+import com.qian.R;
 import com.qian.utils.fragmentUtil.BackHandlerHelper;
 import com.qian.MyApplication;
 
@@ -24,7 +28,7 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IView{
-
+    private PopupWindow mPopupWindow;
     /** 是否沉浸状态栏 **/
     private boolean isSetStatusBar = true;
 
@@ -73,6 +77,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         initView(mContextView);
         doBusiness(this);
         MyApplication.addActivity(this);
+
+        initPopWindow();
     }
 
     /**
@@ -133,13 +139,50 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     public abstract void doBusiness(Context mContext);
 
 
+    private void initPopWindow() {
+        // 将布局文件转换成View对象，popupview 内容视图
+        View view = getLayoutInflater().inflate(R.layout.pop_loading, null);
+        // 将转换的View放置到 新建一个popuwindow对象中
+        mPopupWindow = new PopupWindow(view,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        // 点击popuwindow外让其消失
+        mPopupWindow.setOutsideTouchable(false);
+        // mpopupWindow.setBackgroundDrawable(background);
 
+    }
 
+    public void showProgress(){
+        if (null!=mPopupWindow){
+            if (!mPopupWindow.isShowing()){
+                showProgressCenter();
+            }
+        }else {
+            initPopWindow();
+            showProgressCenter();
+        }
+    }
+
+    public void dismissProgress(){
+        if (null!=mPopupWindow  ){
+            mPopupWindow.dismiss();
+        }
+    }
+
+    private void showProgressCenter(){
+        if (null!=mPopupWindow){
+            mPopupWindow.showAtLocation(mContext.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+        }
+
+    }
 
 
     @Override
     protected void onRestart() {
         super.onRestart();
+        if (null!=mPopupWindow){
+            mPopupWindow.dismiss();
+        }
         Log.d(TAG, "onRestart()");
     }
 
@@ -179,9 +222,14 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     @Override
     public void onBackPressed() {
-        if (!BackHandlerHelper.handleBackPress(this)) {
-            super.onBackPressed();
+        if (null!=mPopupWindow && mPopupWindow.isShowing()){
+            dismissProgress();
+        }else {
+            if (!BackHandlerHelper.handleBackPress(this)) {
+                super.onBackPressed();
+            }
         }
+
     }
 
 
